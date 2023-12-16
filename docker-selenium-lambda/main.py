@@ -13,8 +13,10 @@ import json
 import platform
 
 def handler(event=None, context=None):
-    user = 'jarni066@gmail.com'
-    password = 'python311'
+    with open('linkedin_account.json') as f:
+        account = json.load(f)
+    user = account['user']
+    password = account['password']
     keyword = 'Data Scientist'
     url = 'https://www.linkedin.com/feed'
 
@@ -69,6 +71,7 @@ def main_scrape(url,user,password,keyword):
                 login(driver,user, password)
                 time.sleep(3)
                 save_cookie(driver, 'cookie.json')
+                print("Cookie saved")
                 time.sleep(3)
             except:
                 print('Failed login')
@@ -80,6 +83,7 @@ def main_scrape(url,user,password,keyword):
 
         driver.close()
         driver.quit()
+        data = None
 
     elif os_name == "Linux":
         print('From Linux')

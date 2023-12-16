@@ -14,8 +14,12 @@ RUN dnf install -y atk cups-libs gtk3 libXcomposite alsa-lib \
 RUN pip install selenium==4.16.0
 RUN pip install beautifulsoup4
 RUN pip install webdriver-manager
+
 COPY --from=build /opt/chrome-linux64 /opt/chrome
 COPY --from=build /opt/chromedriver-linux64 /opt/
+
 COPY main.py ./
 COPY cookie.json ./
+COPY get_cookie.py ./
+COPY linkedin_account.json ./
 CMD [ "main.handler" ]
